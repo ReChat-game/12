@@ -1,0 +1,78 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  width: 100%;
+  background-color: #fff0f5;
+  font-family: sans-serif;
+}
+
+.container {
+  border: 10px solid #ff69b4;
+  border-radius: 30px;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+#click-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2em;
+  color: #ff69b4;
+  z-index: 10;
+  user-select: none;
+  animation: pulseText 1s infinite;
+}
+
+@keyframes pulseText {
+  0% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.1); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+#heart-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: #ff69b4;
+  border-radius: 50%;
+  transition: transform 1s ease-in-out;
+}
+
+.dot.pulse {
+  animation: pulseDot 1s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0% { transform: scale(1) translate(var(--x), var(--y)); }
+  50% { transform: scale(1.2) translate(var(--x), var(--y)); }
+  100% { transform: scale(1) translate(var(--x), var(--y)); }
+}
+
+#love-text {
+  font-family: 'Comic Sans MS', cursive;
+  font-size: 2.5em;
+  color: #ff69b4;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.5);
+  opacity: 0;
+  transition: all 1s ease;
+  z-index: 5;
+  pointer-events: none;
+}
