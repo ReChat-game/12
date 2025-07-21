@@ -21,12 +21,16 @@
     const dots = [];
     const numDots = 100;
 
-    // Criar pontos com movimento aleatório contínuo
+    // Criar pontos espalhados aleatoriamente na tela
     for (let i = 0; i < numDots; i++) {
       const dot = document.createElement('div');
       dot.className = 'dot';
-      dot.style.left = '50%';
-      dot.style.top = '50%';
+
+      const xRand = Math.random() * window.innerWidth;
+      const yRand = Math.random() * window.innerHeight;
+      dot.style.left = `${xRand}px`;
+      dot.style.top = `${yRand}px`;
+
       heartContainer.appendChild(dot);
       dots.push(dot);
       floatAround(dot);
@@ -35,8 +39,8 @@
     // Movimento aleatório contínuo com animação
     function floatAround(dot) {
       if (clicked) return;
-      const x = Math.random() * 100 - 50;
-      const y = Math.random() * 100 - 50;
+      const x = Math.random() * 60 - 30;
+      const y = Math.random() * 60 - 30;
       dot.style.transform = `translate(${x}px, ${y}px)`;
       setTimeout(() => floatAround(dot), 1000 + Math.random() * 1000);
     }
@@ -53,8 +57,10 @@
         const x = 16 * Math.pow(Math.sin(t), 3);
         const y = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t);
         const dot = dots[i];
+
         dot.style.setProperty('--x', `${x * scale}px`);
         dot.style.setProperty('--y', `${-y * scale}px`);
+
         setTimeout(() => {
           dot.style.transform = `translate(${x * scale}px, ${-y * scale}px)`;
           dot.classList.add("pulse");
