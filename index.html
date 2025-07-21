@@ -21,7 +21,7 @@
     const dots = [];
     const numDots = 100;
 
-    // Criar pontos espalhados aleatoriamente na tela
+    // Criar pontos espalhados aleatoriamente pela tela
     for (let i = 0; i < numDots; i++) {
       const dot = document.createElement('div');
       dot.className = 'dot';
@@ -36,7 +36,7 @@
       floatAround(dot);
     }
 
-    // Movimento aleatório contínuo com animação
+    // Movimento aleatório lento e contínuo dos pontos
     function floatAround(dot) {
       if (clicked) return;
       const x = Math.random() * 60 - 30;
@@ -45,7 +45,7 @@
       setTimeout(() => floatAround(dot), 1000 + Math.random() * 1000);
     }
 
-    // Ao clicar, formar o coração
+    // Evento clique: formar coração e mostrar texto "Te amo..."
     document.body.addEventListener('click', () => {
       if (clicked) return;
       clicked = true;
@@ -58,12 +58,16 @@
         const y = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t);
         const dot = dots[i];
 
+        // Centraliza o ponto antes da animação do coração
+        dot.style.left = '50%';
+        dot.style.top = '50%';
+
         dot.style.setProperty('--x', `${x * scale}px`);
         dot.style.setProperty('--y', `${-y * scale}px`);
 
         setTimeout(() => {
           dot.style.transform = `translate(${x * scale}px, ${-y * scale}px)`;
-          dot.classList.add("pulse");
+          dot.classList.add('pulse');
         }, 10 * i);
       }
 
