@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Coração com Pontos</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <p id="click-text">Clique na tela</p>
+    <div id="heart-container"></div>
+    <p id="love-text">Te amo...</p>
+  </div>
+
+  <script>
+    const heartContainer = document.getElementById('heart-container');
+    const clickText = document.getElementById('click-text');
+    const loveText = document.getElementById('love-text');
+    let clicked = false;
+    const dots = [];
+    const numDots = 100;
+
+    // Criar pontos com movimento aleatório
+    for (let i = 0; i < numDots; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'dot';
+      dot.style.left = '50%';
+      dot.style.top = '50%';
+      dot.style.transform = `translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px)`;
+      heartContainer.appendChild(dot);
+      dots.push(dot);
+    }
+
+    // Movimento aleatório contínuo
+    const floatInterval = setInterval(() => {
+      if (clicked) return;
+      dots.forEach(dot => {
+        const x = Math.random() * 60 - 30;
+        const y = Math.random() * 60 - 30;
+        dot.style.transform = `translate(${x}px, ${y}px)`;
+      });
+    }, 1000);
+
+    // Coração ao clicar
+    document.body.addEventListener('click', () => {
+      if (clicked) return;
+      clicked = true;
+      clearInterval(floatInterval);
+      clickText.style.display = 'none';
+
+      const scale = 10;
+      for (let i = 0; i < numDots; i++) {
+        const t = Math.PI * 2 * (i / numDots);
+        const x = 16 * Math.pow(Math.sin(t), 3);
+        const y = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t);
+        setTimeout(() => {
+          dots[i].style.transform = `translate(${x * scale}px, ${-y * scale}px)`;
+          dots[i].classList.add("pulse");
+        }, 15 * i);
+      }
+
+      // Aparecer o texto "Te amo..."
+      setTimeout(() => {
+        loveText.style.opacity = '1';
+        loveText.style.transform = 'translate(-50%, -50%) scale(1)';
+      }, 1600);
+    });
+  </script>
+</body>
+</html>
